@@ -174,51 +174,20 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 	    	return Ans.substring(0, Ans.length()-1);
 	  
 	    }
-	    	
 	    
-	    String BigList= new String();
-//		private E findLength(Node<E> cRoot, int len)
-//		{
-//			
-//			
-//			if(cRoot==null) return null;
-//			
-////			int result = Integer.compare(4,cRoot.data.toString().length());  
-//			int result = Integer.compare(5,5); 
-//			
-//			//lenResult = Integer.compare(len,root.data.toString().length());
-//			if(result==0) {
-//				BigList.add(cRoot.data);
-//				return cRoot.data;
-//			}
-//			else if(result<0) 
-//			{
-//				return findLength(cRoot.left, len);
-//			}
-//			else{
-//				return findLength(cRoot.right, len);
-//			}
-//		}
 		
 		protected String lenCompare(Node<E> cRoot,int len)
 		{
 			if(cRoot==null) return "";	
 			
 			int strLength = cRoot.data.toString().length() ;
-//			System.out.println(  len );
 			if( len ==  strLength )
 			{
-//				BigList += cRoot.data+" ";
-//				BigList = "WTF";
-//				System.out.println(  "WTF" );
 				return lenCompare(cRoot.left,len) +cRoot.data+" "+lenCompare(cRoot.right,len);
 			}
 			else 		 
 				return lenCompare(cRoot.left,len)+lenCompare(cRoot.right,len);
-		}
-		
-	    
-		   
+		}		   
 	    
 	    public BinarySearchTree<String> getSubBST(int len) {
 	    	
@@ -226,21 +195,25 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 			//please complete this method........
 			//correct the return statement
 	 	
-	    	
-//	    	ArrayList<E>AnsList= new ArrayList<E>();
-//	    	
-//	    	BinarySearchTree<E> mySubBST=new BinarySearchTree<E>();
-//	    	
-//	    	int lenResult;
 	    	String dataResult= lenCompare(root,len);
 	    	
 	    	BinarySearchTree<String> AnsTree=new BinarySearchTree<String>(dataResult.substring(0, dataResult.length()-1));	
-//	    	AnsTree.add("WTF");
-	    	
-
 	    	
 	    	return AnsTree;
 	    }
+	    
+		protected String biCompare(Node<E> cRoot,E start,E end)
+		{
+			if(cRoot==null) return "";	
+			
+			E strLength = cRoot.data ;
+			if( start.compareTo(strLength) >= 0 && end.compareTo(strLength) <= 0   )
+			{
+				return biCompare(cRoot.left,start,end) +cRoot.data+" "+biCompare(cRoot.right,start,end);
+			}
+			else 		 
+				return biCompare(cRoot.left,start,end)+biCompare(cRoot.right,start,end);
+		}	
 		
 		public String showValuesInRange(E start, E end)
 		{
@@ -248,8 +221,21 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 			
 			//please complete this method........
 //			find(start);
+			Node Ans = root;
+			if (start.compareTo(end) < 0 )
+			{
+				E temp = start;
+				start = end;
+				end = temp;
+				
+			}
+	
 			
-			return find(start).toString();
+			
+			String Final = biCompare(Ans,start,end);
+			
+			
+			return Final.substring(0, Final.length()-1);
 		}
 		
 		public String findLargestValue()
