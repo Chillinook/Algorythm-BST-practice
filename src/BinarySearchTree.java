@@ -176,7 +176,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 	    }
 	    	
 	    
-//	    String BigList= new String();
+	    String BigList= new String();
 //		private E findLength(Node<E> cRoot, int len)
 //		{
 //			
@@ -200,23 +200,27 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 //			}
 //		}
 		
-//		protected String lenCompare(Node<E> cRoot,int len)
-//		{
-//			if(cRoot==null) return "";			
-//			
-//			if( (Integer.compare(len,cRoot.data.toString().length())  == 0 ))
-//			{
+		protected String lenCompare(Node<E> cRoot,int len)
+		{
+			if(cRoot==null) return "";	
+			
+			int strLength = cRoot.data.toString().length() ;
+//			System.out.println(  len );
+			if( len ==  strLength )
+			{
 //				BigList += cRoot.data+" ";
-//				
-//			}
-//			 
-//			return inOrderTraversal(cRoot.left) +cRoot.data+" "+inOrderTraversal(cRoot.right);
-//		}
-//		
-//	    
+//				BigList = "WTF";
+//				System.out.println(  "WTF" );
+				return lenCompare(cRoot.left,len) +cRoot.data+" "+lenCompare(cRoot.right,len);
+			}
+			else 		 
+				return lenCompare(cRoot.left,len)+lenCompare(cRoot.right,len);
+		}
+		
+	    
 		   
 	    
-	    public BinarySearchTree<E> getSubBST(int len) {
+	    public BinarySearchTree<String> getSubBST(int len) {
 	    	
 	    	//Todo
 			//please complete this method........
@@ -228,14 +232,12 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 //	    	BinarySearchTree<E> mySubBST=new BinarySearchTree<E>();
 //	    	
 //	    	int lenResult;
-//	    	String dataResult="";
-//	    	
+	    	String dataResult= lenCompare(root,len);
+	    	
+	    	BinarySearchTree<String> AnsTree=new BinarySearchTree<String>(dataResult.substring(0, dataResult.length()-1));	
+//	    	AnsTree.add("WTF");
+	    	
 
-	    	
-	    	BinarySearchTree<E> AnsTree=new BinarySearchTree<E>();	
-	    	
-
-	    	
 	    	
 	    	return AnsTree;
 	    }
